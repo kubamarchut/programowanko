@@ -1,3 +1,5 @@
+# !!! No rights reserved, żadne prawa nie strzeżone !!!
+ 
 import json
 #from random import randint # - potrzebny do generowania studentów
 
@@ -150,3 +152,6 @@ if __name__ == '__main__':
     printAllStudents(students)
     saveStudentsToFile("bazastudentow.json")
     printAllStudents(readStudentsFromFile("bazastudentow.json"))
+    
+# !!! No rights reserved, żadne prawa nie strzeżone !!!
+
