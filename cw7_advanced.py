@@ -1,4 +1,4 @@
-
+from geopy.geocoders import Nominatim
 import json, math, sys
 
 cities = ['Warsaw', "Kraków", "Gdansk", "New York", "San francisco", "Melbourne"]
@@ -9,6 +9,20 @@ data = [{'nazwa': 'Warsaw', 'dlugosc': 21.0067249, 'szerokosc': 52.2319581},
 {'nazwa': 'New York', 'dlugosc': -74.0060152, 'szerokosc': 40.7127281},
 {'nazwa': 'San francisco', 'dlugosc': -122.419906, 'szerokosc': 37.7790262},
 {'nazwa': 'Melbourne', 'dlugosc': 144.9631608, 'szerokosc': -37.8142176}]
+
+def getCoordinates(cities):
+    print("pobieranie danych...")
+    geolocator = Nominatim(user_agent="locationapp")
+
+    geo_data = []
+    for city in cities:
+        location = geolocator.geocode(city)
+        geo_data_city = {}
+        geo_data_city['nazwa'] = city
+        geo_data_city['dlugosc'] = location.longitude
+        geo_data_city['szerokosc'] = location.latitude
+        geo_data.append(geo_data_city)
+    return geo_data
 
 def saveToFile(filename, data):
     print("zapisywanie danych")
@@ -41,5 +55,10 @@ def main():
     saveToFile('data.json',data)
     beautifulPrinting(readFile('data.json'))
 if __name__ == '__main__':
-    saveToFile('data.json', data)
-    beautifulPrinting(readFile('data.json'))
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "geoapi":
+             saveToFile('data.json', getCoordinates(cities))
+             beautifulPrinting(readFile('data.json'))
+    else:
+        saveToFile('data.json', data)
+        beautifulPrinting(readFile('data.json'))
