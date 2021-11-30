@@ -56,7 +56,7 @@ def main():
     beautifulPrinting(readFile('data.json'))
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        if sys.argv[1] == "geoapi":
+        if sys.argv[1] == "geopy":
              saveToFile('data.json', getCoordinates(cities))
              beautifulPrinting(readFile('data.json'))
     else:
